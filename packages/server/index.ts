@@ -40,7 +40,7 @@ app.post('/api/chat', async (req: Request, res: Response) => {
         const { prompt, conversationId } = parseResult.data;
         const response = await chatService.sendMessage(prompt, conversationId);
 
-        res.json({ message: response.output_text });
+        res.json({ message: response.message });
     } catch (error) {
         res.status(500).json({ error: 'Failed to generate response' });
     }
