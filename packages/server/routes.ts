@@ -2,6 +2,7 @@ import express from 'express';
 import type { Request, Response } from 'express';
 import { chatController } from './controllers/chat.controller';
 import { PrismaClient } from './generated/prisma';
+import { reviewController } from './controllers/review.controller';
 
 const router = express.Router();
 
@@ -15,16 +16,6 @@ router.get('/api/hello', (req: Request, res: Response) => {
 // Chat API endpoint that sends a prompt to OpenAI and returns the response
 router.post('/api/chat', chatController.sendMessage);
 
-router.get('/api/products/:id/reviews', async (req: Request, res: Response) => {
-    const prisma = new PrismaClient();
-    const productId = Number(req.params.id);
-
-    const reviews = await prisma.review.findMany({
-        where: { productId },
-        orderBy: { createdAt: 'desc' },
-    });
-
-    res.json(reviews);
-});
+router.get('/api/products/:id/reviews', reviewController.getReviews);
 
 export default router;
