@@ -1,0 +1,2 @@
+Summarize the following reviews into a short paragraph highlighting 
+key themes both negative and positive : {{reviews}}
